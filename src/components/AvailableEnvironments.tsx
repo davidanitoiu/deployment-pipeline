@@ -1,4 +1,4 @@
-import { List, ListItem, ListItemText, makeStyles, Theme } from "@material-ui/core";
+import { Divider, List, ListItem, ListItemText, makeStyles, Theme, Typography } from "@material-ui/core";
 import { INode } from "@mrblenny/react-flow-chart";
 import { difference, find, map } from "lodash";
 import React, { useContext, useEffect, useMemo } from "react";
@@ -61,6 +61,9 @@ function AvailableEnvironments({ title }: { title: string }) {
   };
 
   return (
+    <>
+      <Typography variant={"overline"} align={"center"}>Drag & Drop</Typography>
+      <Divider />
     <List>
       {diff.map((environment, i) => (
         <ListItem
@@ -79,6 +82,7 @@ function AvailableEnvironments({ title }: { title: string }) {
         </ListItem>
       ))}
     </List>
+    </>
   );
 }
 
