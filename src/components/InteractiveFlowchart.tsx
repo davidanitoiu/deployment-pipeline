@@ -1,10 +1,11 @@
 import { makeStyles, Theme } from "@material-ui/core";
-import { FlowChartWithState } from "@mrblenny/react-flow-chart";
-import React from "react";
-import chartSimple from "../utils/chartSimple.json";
-import { setSelectedPipeline } from "../utils/store/actions/pipeline";
-import { useSelector, useDispatch } from "react-redux";
+import { FlowChart } from "@mrblenny/react-flow-chart";
+import React, { useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { PipelineContext } from "../utils";
 import { RootState } from "../utils/store";
+import { setSelectedPipeline } from "../utils/store/actions/pipeline";
+import { usePipeline } from "../utils/usePipeline";
 import { PipelineNodeInner } from "./PipelineInnerNode";
 
 const useStyles = makeStyles<Theme>((theme) => ({
@@ -31,6 +32,12 @@ export const InteractiveFlowchart = ({ title }: InteractiveFlowchart) => {
   const selectedPipeline = useSelector(
     (state: RootState) => state.pipeline.selectedPipeline
   );
+  const [chart, callbacks, chartDispatch] = usePipeline(title);
+  const contextValue = useMemo(() => ({ chart, callbacks, chartDispatch }), [
+    chart,
+    callbacks,
+    chartDispatch,
+  ]);
 
   const handleMouseEnter = () => {
     if (title !== selectedPipeline) {
@@ -39,13 +46,16 @@ export const InteractiveFlowchart = ({ title }: InteractiveFlowchart) => {
   };
 
   return (
-    <div onMouseEnter={handleMouseEnter} className={classes.container}>
-      <FlowChartWithState 
-      initialValue={chartSimple}
-      Components={{
-          NodeInner: PipelineNodeInner
-      }}
-       />
-    </div>
+    <PipelineContext.Provider value={contextValue}>
+      <div onMouseEnter={handleMouseEnter} className={classes.container}>
+        <FlowChart
+          chart={chart}
+          callbacks={callbacks}
+          Components={{
+            NodeInner: PipelineNodeInner,
+          }}
+        />
+      </div>
+    </PipelineContext.Provider>
   );
 };
