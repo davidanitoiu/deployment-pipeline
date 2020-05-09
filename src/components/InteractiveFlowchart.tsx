@@ -2,10 +2,9 @@ import { makeStyles, Theme } from "@material-ui/core";
 import { FlowChart } from "@mrblenny/react-flow-chart";
 import React, { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { PipelineContext } from "../utils";
+import { usePipeline, PipelineContext } from "../utils";
 import { RootState } from "../utils/store";
 import { setSelectedPipeline } from "../utils/store/actions/pipeline";
-import { usePipeline } from "../utils/usePipeline";
 import { PipelineNodeInner } from "./PipelineInnerNode";
 
 const useStyles = makeStyles<Theme>((theme) => ({

@@ -4,6 +4,7 @@ import { AnyAction } from "@reduxjs/toolkit";
 
 export * from "./theme"
 export * from "./types"
+export * from "./usePipeline"
 
 interface PipelineContext {
     chart: IChart,
