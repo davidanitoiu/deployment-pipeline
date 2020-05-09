@@ -1,6 +1,6 @@
 import { ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, IconButton, makeStyles, TextField, Theme, Typography } from "@material-ui/core";
 import { Add, ExpandMore } from "@material-ui/icons";
-import { find, isEmpty } from "lodash";
+import { find, isEmpty, kebabCase } from "lodash";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { InteractiveFlowchart } from "./components/InteractiveFlowchart";
@@ -77,11 +77,10 @@ function App() {
           <ExpansionPanel key={pipeline.title}>
             <ExpansionPanelSummary
               expandIcon={<ExpandMore />}
-              aria-controls="panel1a-content"
-              id="panel1a-header"
+              aria-controls={`${kebabCase(pipeline.title)}-content`}
             >
               <Typography variant={"overline"}>
-                Expansion Panel {pipeline.title}
+                {pipeline.title}
               </Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
