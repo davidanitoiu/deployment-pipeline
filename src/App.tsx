@@ -1,10 +1,20 @@
-import { ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, IconButton, makeStyles, TextField, Theme, Typography } from "@material-ui/core";
+import {
+  ExpansionPanel,
+  ExpansionPanelDetails,
+  ExpansionPanelSummary,
+  IconButton,
+  makeStyles,
+  TextField,
+  Theme,
+  Typography,
+} from "@material-ui/core";
 import { Add, ExpandMore } from "@material-ui/icons";
 import { find, isEmpty } from "lodash";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "./utils/store";
 import { addPipeline } from "./utils/store/actions/pipeline";
+import { InteractiveFlowchart } from "./components/InteractiveFlowchart";
 
 const useStyles = makeStyles<Theme>((theme) => ({
   app: {
@@ -22,7 +32,7 @@ const useStyles = makeStyles<Theme>((theme) => ({
     justifyContent: "space-around",
   },
   addButton: {
-    margin: theme.spacing(1)
+    margin: theme.spacing(1),
   },
   pipelines: {
     flex: 1,
@@ -33,7 +43,9 @@ const useStyles = makeStyles<Theme>((theme) => ({
 function App() {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { pipelines } = useSelector((state: RootState) => state.pipeline);
+  const { pipelines, selectedPipeline } = useSelector(
+    (state: RootState) => state.pipeline
+  );
   const [pipelineName, setPipelineName] = useState("");
 
   const isValidName = (pipelineName: string) => {
@@ -59,6 +71,7 @@ function App() {
           variant={"outlined"}
           value={pipelineName}
           label={"Pipeline Name"}
+          helperText={selectedPipeline ? `Selected pipeline: ${selectedPipeline}` : 'No pipeline selected'}
           onChange={handlePipelineNameChange}
           onKeyDown={handleEnter}
         />
@@ -68,7 +81,7 @@ function App() {
       </div>
       <div className={classes.pipelines}>
         {pipelines.map((pipeline) => (
-          <ExpansionPanel key={pipeline.title}>
+          <ExpansionPanel key={pipeline.title} >
             <ExpansionPanelSummary
               expandIcon={<ExpandMore />}
               aria-controls="panel1a-content"
@@ -79,7 +92,7 @@ function App() {
               </Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
-              <p>Pipeline comes here</p>
+              <InteractiveFlowchart title={pipeline.title} />
             </ExpansionPanelDetails>
           </ExpansionPanel>
         ))}
