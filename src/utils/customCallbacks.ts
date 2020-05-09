@@ -4,6 +4,9 @@ import { Dispatch } from "react";
 import { executeChartAction } from "./usePipeline";
 import { addLink, removeNode, removeLink, setNodePosition } from "./store/actions/pipeline";
 
+// Typescript does not accept spread operators with functions. There is an open bug
+// The offending lines will be ignored for now
+
 export const customCallbacks = (chart: IChart, chartDispatch: Dispatch<AnyAction>, dispatch: Dispatch<AnyAction>) => {
 
     return ({
@@ -19,7 +22,8 @@ export const customCallbacks = (chart: IChart, chartDispatch: Dispatch<AnyAction
             }
 
             dispatch(addLink(link));
-            chartDispatch(executeChartAction({ action: actions.onLinkComplete(args) }));
+            // @ts-ignore
+            chartDispatch(executeChartAction({ action: actions.onLinkComplete(...args) }));
         },
         onDeleteKey: (...args: any) => {
             const { selected } = chart;
@@ -33,18 +37,20 @@ export const customCallbacks = (chart: IChart, chartDispatch: Dispatch<AnyAction
                 dispatch(removeLink(linkId));
             }
 
-            chartDispatch(executeChartAction({ action: actions.onDeleteKey(args) }));
+            // @ts-ignore
+            chartDispatch(executeChartAction({ action: actions.onDeleteKey(...args) }));
         },
         onDragNodeStop: (...args: any) => {
-            const {id, data} = args[0];
+            const { data } = args[0];
 
             const position = {
                 x: data.x,
                 y: data.y
             }
 
-            dispatch(setNodePosition(id, position));
-            chartDispatch(executeChartAction({ action: actions.onDragNodeStop(args) }));
+            dispatch(setNodePosition(data.node.innerText, position));
+            // @ts-ignore
+            chartDispatch(executeChartAction({ action: actions.onDragNodeStop(...args) }));
         }
     })
 }
