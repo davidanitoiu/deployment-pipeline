@@ -1,44 +1,78 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Deployment Pipeline
 
-## Available Scripts
+This is a basic implementation of [React Flow Chart](https://github.com/MrBlenny/react-flow-chart)
 
-In the project directory, you can run:
+## What this solution does
 
-### `npm start`
+It allows sysadmins to manage deployment pipelines with a graphical interface, and also allows to alter attributes of the respective servers.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Some additional benefits:
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+- the ability to visualize which version of an application is deployed currently in each environment
 
-### `npm test`
+- alteration of environment variables
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- (optional) self-service solution
 
-### `npm run build`
+## Problem
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+In this implementation we will assume a client setup with multiple environments.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+Traditional:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Development
+- Test
+- Acceptance
+- Production
 
-### `npm run eject`
+Scenario:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- Development: Dev1, Dev2, ..., Dev16
+- Test: Test1, Test2
+- Acceptance: Acc1, Acc2, Acc3
+- Production: Prod,
+- Production-Clones: HardwareAnalysis, Bugfixing, BusinessIntelligence, ...
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+In the traditional setup, the pipeline may look very simple:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Dev -> Test -> Acc -> Production
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+In our the scenario, the pipeline may look like this:
 
-## Learn More
+Dev1 -> Test2 -> Dev5+Dev8+Dev14 -> Test1 -> Acc1+Acc2+Acc3 -> Prod + HA + Bug + BI
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Let's assume one of the product owners wishes to add a new acceptance server for his department. The operations team now must reconfigure all the scripts related to the pipeline to add the new server. A simple, but tedious task.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Implementation
+
+The react-flow-chart is encapuslated, and accessed with a usePipeline hook.
+
+Business relevant information is passed onto the redux-store and is accessible from the application with the useSelector hooks.
+
+When adding a new pipeline in the interface, a basic skeleton is generated in the redux-store. This skeleton is used by dedicated generators to create a react-flow-chart JSON.
+
+Custom callbacks are used providing relevant synchronization.
+
+## Usage
+
+The assumption is that each user has access to different environments with different configurations, but can have multiple pipelines. (typically 1-3)
+
+Before starting, make sure to either set up a REST server, or use a fake JSON server to provide the relevant REST endpoints.
+
+[JSON Server](https://github.com/typicode/json-server)
+
+A dummy file can be found in the ./src/utils/fakeRestServer.json
+
+```bash
+json-server --watch ./src/utils/fakeJsonServer.json
+```
+
+## Handling
+
+To create nodes, drag and drop them on the canvas.
+
+To delete nodes or links, select them and press 'Delete' on your keyboard.
+
+To view the properties of a node, select it, and a menu will appear on the right. You may alter the attributes here.
+
+When you are done, you may press 'Save' to submit the changes to the server.
