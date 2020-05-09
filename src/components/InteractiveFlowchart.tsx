@@ -13,6 +13,7 @@ const useStyles = makeStyles<Theme>((theme) => ({
   container: {
     width: "100%",
     display: "flex",
+    height: "60vh"
   },
   sidebar: {
     width: 300,
