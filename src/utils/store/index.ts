@@ -1,8 +1,9 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import {pipeline} from "./reducer"
+import {pipeline,environments} from "./reducer"
 
 const rootReducer = combineReducers({
-    pipeline
+    pipeline,
+    environments
 })
 
 // Used for to enable Redux Dev Tools browser extension
