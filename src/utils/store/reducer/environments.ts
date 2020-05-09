@@ -1,0 +1,37 @@
+import { createReducer } from "@reduxjs/toolkit"
+import { Environment } from "../../types";
+
+const initialState:Array<Environment> = [
+    {
+        name: "Dev",
+        os: "RHEL 7.6",
+        kernel: "3.10.0-957",
+        host: "CTRDFLWC",
+        autoDeploy: false,
+    },
+    {
+        name: "Test",
+        os: "RHEL 7.6",
+        kernel: "3.10.0-957",
+        host: "CTRTFLWC",
+        autoDeploy: false,
+    },
+    {
+        name: "Acc",
+        os: "RHEL 7.5",
+        kernel: "3.10.0-862",
+        host: "CTRAFLWC",
+        autoDeploy: false,
+    },
+    {
+        name: "Prod",
+        os: "RHEL 7.6",
+        kernel: "3.10.0-957",
+        host: "CTRPFLWC",
+        autoDeploy: false,
+    }
+]
+
+export const environments = createReducer(initialState, {
+
+});
