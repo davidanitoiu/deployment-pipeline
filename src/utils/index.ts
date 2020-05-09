@@ -5,6 +5,7 @@ import { AnyAction } from "@reduxjs/toolkit";
 export * from "./theme"
 export * from "./types"
 export * from "./usePipeline"
+export * from "./validateLink"
 
 interface PipelineContext {
     chart: IChart,

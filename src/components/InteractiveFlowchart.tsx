@@ -2,7 +2,7 @@ import { makeStyles, Theme } from "@material-ui/core";
 import { FlowChart } from "@mrblenny/react-flow-chart";
 import React, { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { PipelineContext, usePipeline } from "../utils";
+import { PipelineContext, usePipeline, validateLink } from "../utils";
 import { RootState } from "../utils/store";
 import { setSelectedPipeline } from "../utils/store/actions/pipeline";
 import AvailableEnvironments from "./AvailableEnvironments";
@@ -54,6 +54,10 @@ export const InteractiveFlowchart = ({ title }: InteractiveFlowchart) => {
           callbacks={callbacks}
           Components={{
             NodeInner: PipelineNodeInner,
+          }}
+          config={{
+            snapToGrid: true,
+            validateLink
           }}
         />
         <div className={classes.sidebar}>
