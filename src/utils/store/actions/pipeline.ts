@@ -45,9 +45,9 @@ export const setSelectedPipeline = createAction('pipeline/setSelectedPipeline', 
     }
 }));
 
-export const setNodePosition = createAction('pipeline/setNodePosition', (name:string,nodePosition:IPosition) => ({
+export const setNodePosition = createAction('pipeline/setNodePosition', (name:string,position:IPosition) => ({
     payload: {
         name,
-        position: nodePosition
+        position
     }
 }))
