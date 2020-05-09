@@ -37,7 +37,7 @@ function AvailableEnvironments({ title }: { title: string }) {
       const nodeTitles = map(chart.nodes, (node) => node.properties.name);
       const pipelineNodeTitles = map(pipeline.nodes, (node) => node.name);
       const diff = difference(nodeTitles, pipelineNodeTitles);
-      const newNode = getChartData(diff[0]);
+      const newNode =  find(chart.nodes, (node) => node.properties.name === diff[0])!;
       dispatch(addNode(newNode));
     }
     // eslint-disable-next-line
@@ -64,7 +64,7 @@ function AvailableEnvironments({ title }: { title: string }) {
     <List>
       {diff.map((environment, i) => (
         <ListItem
-          key={i}
+          key={environment}
           className={classes.sidebarItem}
           draggable={true}
           onDragStart={(event: React.DragEvent<HTMLElement>) => {
