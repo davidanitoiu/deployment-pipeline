@@ -53,7 +53,10 @@ function App() {
     return !isEmpty(pipelineName) && !exists;
   };
   const createPipeline = () => {
-    if (isValidName(pipelineName)) dispatch(addPipeline(pipelineName));
+    if (isValidName(pipelineName)) {
+      dispatch(addPipeline(pipelineName));
+      setPipelineName("");
+    }
   };
   const handlePipelineNameChange = ({
     target,
@@ -71,7 +74,11 @@ function App() {
           variant={"outlined"}
           value={pipelineName}
           label={"Pipeline Name"}
-          helperText={selectedPipeline ? `Selected pipeline: ${selectedPipeline}` : 'No pipeline selected'}
+          helperText={
+            selectedPipeline
+              ? `Selected pipeline: ${selectedPipeline}`
+              : "No pipeline selected"
+          }
           onChange={handlePipelineNameChange}
           onKeyDown={handleEnter}
         />
@@ -81,7 +88,7 @@ function App() {
       </div>
       <div className={classes.pipelines}>
         {pipelines.map((pipeline) => (
-          <ExpansionPanel key={pipeline.title} >
+          <ExpansionPanel key={pipeline.title}>
             <ExpansionPanelSummary
               expandIcon={<ExpandMore />}
               aria-controls="panel1a-content"
