@@ -2,9 +2,11 @@ import { makeStyles, Theme } from "@material-ui/core";
 import { FlowChart } from "@mrblenny/react-flow-chart";
 import React, { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { usePipeline, PipelineContext } from "../utils";
+import { PipelineContext, usePipeline } from "../utils";
 import { RootState } from "../utils/store";
 import { setSelectedPipeline } from "../utils/store/actions/pipeline";
+import AvailableEnvironments from "./AvailableEnvironments";
+import EnvironmentProperties from "./EnvironmentProperties";
 import { PipelineNodeInner } from "./PipelineInnerNode";
 
 const useStyles = makeStyles<Theme>((theme) => ({
@@ -54,6 +56,13 @@ export const InteractiveFlowchart = ({ title }: InteractiveFlowchart) => {
             NodeInner: PipelineNodeInner,
           }}
         />
+        <div className={classes.sidebar}>
+          {chart.selected?.type === "node" ? (
+            <EnvironmentProperties />
+          ) : (
+            <AvailableEnvironments title={title} />
+          )}
+        </div>
       </div>
     </PipelineContext.Provider>
   );
