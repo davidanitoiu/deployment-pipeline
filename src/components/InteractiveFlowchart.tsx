@@ -5,6 +5,7 @@ import chartSimple from "../utils/chartSimple.json";
 import { setSelectedPipeline } from "../utils/store/actions/pipeline";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../utils/store";
+import { PipelineNodeInner } from "./PipelineInnerNode";
 
 const useStyles = makeStyles<Theme>((theme) => ({
   container: {
@@ -39,7 +40,12 @@ export const InteractiveFlowchart = ({ title }: InteractiveFlowchart) => {
 
   return (
     <div onMouseEnter={handleMouseEnter} className={classes.container}>
-      <FlowChartWithState initialValue={chartSimple} />
+      <FlowChartWithState 
+      initialValue={chartSimple}
+      Components={{
+          NodeInner: PipelineNodeInner
+      }}
+       />
     </div>
   );
 };
