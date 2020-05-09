@@ -27,6 +27,9 @@
             "value": "no"
           }
         }
+      },
+      "properties": {
+        "name": "Dev"
       }
     },
     "node2": {
@@ -45,6 +48,9 @@
           "id": "port2",
           "type": "output"
         }
+      },
+      "properties": {
+        "name": "Acc"
       }
     },
     "node3": {
@@ -63,6 +69,9 @@
           "id": "port2",
           "type": "output"
         }
+      },
+      "properties": {
+        "name": "Test"
       }
     },
     "node4": {
@@ -81,6 +90,9 @@
           "id": "port2",
           "type": "output"
         }
+      },
+      "properties": {
+        "name": "Acc"
       }
     }
   },
