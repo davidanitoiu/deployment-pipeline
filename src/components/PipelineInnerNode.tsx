@@ -6,9 +6,11 @@ import { Theme, Typography } from "@material-ui/core";
 const useStyles = makeStyles<Theme>((theme) => ({
   pipelineCard: {
     color: theme.palette.primary.main,
-    textAlign: "center",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
     height: 50,
-    width: 200,
+    width: 200
   },
 }));
 

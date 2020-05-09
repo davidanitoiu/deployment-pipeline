@@ -1,8 +1,10 @@
 import { actions, IChart, IFlowChartCallbacks } from "@mrblenny/react-flow-chart";
 import { AnyAction, createAction, createReducer } from "@reduxjs/toolkit";
-import { mapValues } from "lodash";
+import { find, mapValues } from "lodash";
 import { Dispatch, useReducer } from "react";
-import chartSimple from "./chartSimple.json";
+import { useSelector } from "react-redux";
+import { generateChart } from "./generators";
+import { RootState } from "./store";
 
 export const setChartProperty = createAction('setChartProperty', ({ nodeId, name, value }: { nodeId: string, name: string, value: boolean }) => ({
     payload: {
@@ -24,7 +26,9 @@ interface usePipeline {
 }
 
 export const usePipeline = (title: string): [IChart, IFlowChartCallbacks, Dispatch<AnyAction>] => {
-    const initialState: IChart = chartSimple;
+    const pipeline = useSelector((state: RootState) => find(state.pipeline.pipelines, { title })!.chart);
+
+    const initialState: IChart = generateChart(pipeline);
 
     const reducer = createReducer(initialState, {
         [executeChartAction.type]: (state, { payload }) => {

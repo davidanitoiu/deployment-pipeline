@@ -5,7 +5,42 @@ import { find, remove } from "lodash";
 
 const initialState:PipelineReducer = {
     selectedPipeline: "",
-    pipelines: []
+    pipelines: [{
+        title: 'Pipeline',
+        chart: {
+          links: [
+            {
+              id: 'Dev_Test',
+              from: 'Dev',
+              to: 'Test'
+            }
+          ],
+          nodes: [
+            {
+              name: 'Dev',
+              os: 'RHEL 7.6',
+              kernel: '3.10.0-957',
+              host: 'CTRDFLWC',
+              autoDeploy: false,
+              position: {
+                x: 166,
+                y: 85
+              }
+            },
+            {
+              name: 'Test',
+              os: 'RHEL 7.6',
+              kernel: '3.10.0-957',
+              host: 'CTRTFLWC',
+              autoDeploy: false,
+              position: {
+                x: 566,
+                y: 85
+              }
+            }
+          ]
+        }
+      }]
 }
 
 export const pipeline = createReducer(initialState, {
