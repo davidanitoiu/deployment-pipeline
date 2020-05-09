@@ -10,9 +10,7 @@ import { addLink, removeNode, removeLink, setNodePosition } from "./store/action
 export const customCallbacks = (chart: IChart, chartDispatch: Dispatch<AnyAction>, dispatch: Dispatch<AnyAction>) => {
 
     return ({
-        onDragCanvas: () => {
-        }, //prevent canvas drag
-        onLinkComplete: (...args: any) => {
+       onLinkComplete: (...args: any) => {
             const actionLink = args[0];
             const from = chart.nodes[actionLink.fromNodeId].properties.name
             const to = chart.nodes[actionLink.toNodeId].properties.name
