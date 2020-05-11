@@ -1,20 +1,14 @@
-import { random } from "lodash"
-
 export const sidebarItemProps = {
     type: "input-output",
     ports: {
         port1: {
             id: "port1",
-            type: "top",
+            type: "left",
         },
         port2: {
             id: "port2",
-            type: "bottom",
+            type: "right",
         },
-    },
-    position: {
-        x: random(100,500),
-        y: random(100,500)
     }
 }
 
@@ -36,7 +30,7 @@ export const nodeTemplate = {
     ports: {
         port1: {
             id: 'port1',
-            type: 'top',
+            type: 'left',
             position: {
                 x: 0,
                 y: 24.5
@@ -45,7 +39,7 @@ export const nodeTemplate = {
         },
         port2: {
             id: 'port2',
-            type: 'bottom',
+            type: 'right',
             position: {
                 x: 200,
                 y: 24.5
