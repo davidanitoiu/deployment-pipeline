@@ -9,8 +9,6 @@ const useStyles = makeStyles<Theme>((theme) => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    height: 50,
-    width: 200
   },
 }));
 
