@@ -5,11 +5,11 @@ export const sidebarItemProps = {
     ports: {
         port1: {
             id: "port1",
-            type: "left",
+            type: "top",
         },
         port2: {
             id: "port2",
-            type: "right",
+            type: "bottom",
         },
     },
     position: {
@@ -36,15 +36,16 @@ export const nodeTemplate = {
     ports: {
         port1: {
             id: 'port1',
-            type: 'left',
+            type: 'top',
             position: {
                 x: 0,
                 y: 24.5
-            }
+            },
+            
         },
         port2: {
             id: 'port2',
-            type: 'right',
+            type: 'bottom',
             position: {
                 x: 200,
                 y: 24.5

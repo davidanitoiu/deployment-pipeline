@@ -23,8 +23,8 @@ const initialState:PipelineReducer = {
               host: 'CTRDFLWC',
               autoDeploy: false,
               position: {
-                x: 166,
-                y: 85
+                x: 20,
+                y: 25
               }
             },
             {
@@ -34,8 +34,8 @@ const initialState:PipelineReducer = {
               host: 'CTRTFLWC',
               autoDeploy: false,
               position: {
-                x: 566,
-                y: 85
+                x: 20,
+                y: 125
               }
             }
           ]
