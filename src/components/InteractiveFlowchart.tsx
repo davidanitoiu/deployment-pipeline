@@ -13,7 +13,14 @@ const useStyles = makeStyles<Theme>((theme) => ({
   container: {
     width: "100%",
     display: "flex",
-    height: "60vh"
+    height: "60vh",
+    "& .react-draggable": {
+      minWidth: 100,
+      height: 50,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center"
+    }
   },
   sidebar: {
     width: 300,
