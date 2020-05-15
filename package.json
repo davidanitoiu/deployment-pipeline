@@ -1,5 +1,5 @@
 {
-  "name": "deployment-pipeline",
+  "name": "@davidanitoiu/deployment-pipeline",
   "description": "Implementation of @mrblenny/react-flow-chart",
   "author": "David Anitoiu <david.anitoiu@gmail.com>",
   "repository": "git@github.com:davidanitoiu/deployment-pipeline.git",
