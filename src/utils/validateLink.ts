@@ -1,5 +1,5 @@
-import { map, omit, isEqual } from "lodash"
-import { IOnLinkCompleteInput, IChart } from "@mrblenny/react-flow-chart"
+import { IChart, IOnLinkCompleteInput } from "@mrblenny/react-flow-chart"
+import { some } from "lodash"
 
 export interface ValidateLink extends IOnLinkCompleteInput {
     chart: IChart
@@ -23,17 +23,16 @@ export const validateLink = ({
         },
     }
 
-    const differentNodes = fromNodeId !== toNodeId
 
     const validType = !(
         chart.nodes[fromNodeId].ports[fromPortId].type ===
         chart.nodes[toNodeId].ports[toPortId].type
     )
 
-    // no duplicate links
-    const noDuplicates = !map(chart.links, link =>
-        omit(link, "id")
-    ).some(link => isEqual(link, linkTuple))
+    
+    const targetIsParentNode = some(chart.links, link => link.from.nodeId === linkTuple.to.nodeId);
+    const sourceHasNoParent = some(chart.links, link => link.to.nodeId === linkTuple.from.nodeId);
+    const noLoop =  !(targetIsParentNode && sourceHasNoParent)
 
-    return validType && noDuplicates && differentNodes
+    return validType && noLoop
 }
