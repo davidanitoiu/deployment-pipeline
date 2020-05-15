@@ -1,8 +1,8 @@
 import { actions, IChart } from "@mrblenny/react-flow-chart";
 import { AnyAction } from "@reduxjs/toolkit";
 import { Dispatch } from "react";
+import { addLink, removeLink, removeNode, setNodePosition } from "./store/actions/pipeline";
 import { executeChartAction } from "./usePipeline";
-import { addLink, removeNode, removeLink, setNodePosition } from "./store/actions/pipeline";
 
 // Typescript does not accept spread operators with functions. There is an open bug
 // The offending lines will be ignored for now
@@ -19,9 +19,20 @@ export const customCallbacks = (chart: IChart, chartDispatch: Dispatch<AnyAction
                 to
             }
 
-            dispatch(addLink(link));
+            
             // @ts-ignore
             chartDispatch(executeChartAction({ action: actions.onLinkComplete(...args) }));
+
+            dispatch(addLink(link));
+
+            const argsWithChart = [{
+                ...actionLink,
+                chart
+            }]
+
+            // @ts-ignore
+            const isLinkValid = actionLink.config.validateLink(...argsWithChart);
+            if (isLinkValid) dispatch(addLink(link));
         },
         onDeleteKey: (...args: any) => {
             const { selected } = chart;
