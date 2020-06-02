@@ -64,7 +64,7 @@ function App() {
         <TextField
           variant={"outlined"}
           value={pipelineName}
-          label={"Pipeline Name"}
+          label={"Enter new pipeline Name"}
           onChange={handlePipelineNameChange}
           onKeyDown={handleEnter}
         />
